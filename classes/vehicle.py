@@ -1,4 +1,4 @@
-from classes.gclass import Gclass
+from gclass import Gclass
 
 
 class Vehicle(Gclass):
@@ -7,13 +7,13 @@ class Vehicle(Gclass):
     pos = 0
     sortkey = ''
 
-    att = ['_id', '_comment', '_company_id']
+    att = ['_id', '_comment']
     header = 'Vehicle'
-    des = ['Id', 'Comment', 'Company Id']
+    des = ['Id', 'Comment']
 
     def __init__(self, id, comment, company_id):
         super().__init__()
-        from classes.company import Company
+        from company import Company
         company_id = int(company_id)
         if company_id not in Company.lst:
             raise ValueError(f'Company {company_id} not found')
