@@ -1,5 +1,5 @@
 import datetime as dt
-from classes.gclass import Gclass
+from gclass import Gclass
 
 
 class Company(Gclass):
@@ -52,5 +52,5 @@ class Company(Gclass):
         return age
 
     def order_count(self):
-        from classes.order import Order
+        from order import Order
         return sum(1 for order in Order.obj.values() if order.company_id == self._id)
