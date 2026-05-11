@@ -1,6 +1,6 @@
 import datetime as dt
-from classes.company import Company
-from classes.gclass import Gclass
+from company import Company
+from gclass import Gclass
 
 
 class Order(Gclass):
