@@ -1,4 +1,4 @@
-from classes.gclass import Gclass
+from gclass import Gclass
 
 
 class Warehouse(Gclass):
