@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Plot Charts</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Faz a barra preta ficar no topo, mas subir e desaparecer com o scroll */
+    nav, .navbar, [style*="background-color: #1a203c"] {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+    }
+
+    /* Como a barra deixa de estar fixa, ajustamos o espaçamento inicial */
+    .plot-page { 
+        max-width: 1100px; 
+        margin: 0 auto; 
+        padding: 70px 20px 60px !important; 
+    }
+    
+    .plot-page h1 { color: #334a94; font-size: 1.6rem; margin-bottom: 6px; }
+    .plot-page p  { color: #7a8aaa; font-size: .9rem; margin-bottom: 32px; }
+    .plot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media (max-width: 750px) { .plot-grid { grid-template-columns: 1fr; } }
+    
+    .plot-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(51,74,148,.09);
+    }
+    .plot-card h2 {
+        font-size: .9rem;
+        font-weight: 700;
+        color: #334a94;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+        margin-bottom: 14px;
+    }
+    .plot-card img { width: 100%; height: auto; border-radius: 6px; }
+</style>
+    <div class="plot-page">
+        <h1 style="text-align: center; font-size: 3rem; margin-top: 20px; color: #1a203c;">Matplotlib Charts</h1>
+        <p></p>
+        <div class="plot-grid">
+            {% for title, img_b64 in charts %}
+            <div class="plot-card">
+                <h2>{{ title }}</h2>
+                <img src="data:image/png;base64,{{ img_b64 }}" alt="{{ title }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
