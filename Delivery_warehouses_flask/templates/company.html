@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+
+{% block content %}
+
+        <div class="dados">
+           
+            <h1 style="text-align: center; font-size: 3rem; margin-top: 20px; color: #1a203c;">Company</h1>
+            <p></p>
+            <br>
+            <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/Company?option=edit'" class="button1">Edit</button>
+            <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/Company?option=delete'" class="button1">Delete</button>
+            <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/Company?option=insert'" class="button1">Insert</button>
+            <button id="save" type="submit" form="form" {{butedit}} class="button1">Save</button>
+            <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/Company?option=cancel'" class="button1">Cancel</button>
+            <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/Company?option=exit'" class="button1">Exit</button>
+            <br><br>
+            <form id="form" action="/Company?option=save" method="post">
+                <label for="id">Id:</label>
+                    {% if butedit == 'enabled' %}
+                <input type="text" readonly id="id" name="id" value="{{id}}" size="5"/>
+                    {% else %}
+                <input type="text" readonly id="id" name="id" value="{{id}}" size="10"/>
+                    {% endif %}
+                <br><br>
+
+                <label for="company_id">Company ID:</label>
+                <input type="text" {{butedit}} id="company_id" name="company_id" value="{{company_id}}" size="10"/>
+                <br><br>
+    
+                <label for="name">Name:</label>
+                <input type="text" {{butedit}} id="name" name="name" value="{{name}}" size="30"/>
+                <br><br>
+    
+                <label for="creation_date">Creation Date:</label>
+                <input type="text" {{butedit}} id="creation_date" name="creation_date" value="{{creation_date}}" size="10"/>
+            </form>
+            <br>
+            <button id="first" type="button" {{butshow}} onclick="window.location.href = '/Company?option=first'" class="button1">First</button>
+            <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/Company?option=previous'" class="button1">Previous</button>
+            <button id="next" type="button" {{butshow}} onclick="window.location.href = '/Company?option=next'" class="button1">Next</button>
+            <button id="last" type="button" {{butshow}} onclick="window.location.href = '/Company?option=last'" class="button1">Last</button>
+        </div>
+
+{% endblock %}
