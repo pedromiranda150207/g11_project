@@ -1,18 +1,12 @@
-"""
-@author: António Brito / Carlos Bragança
-(2025) objective: Generic class
-"""""
-# Generic Class
+
 import sys
 import datetime
 import sqlite3
 class Gclass:
-    # Constructor: Called when an object is instantiated
+
     def __init__(self):
         pass
-#################################################        
-# generic code: no need to change for a new class    
-    # Class method to implement constructor overloading
+
     @classmethod
     def from_string(cls, str_data):
         str_list = str_data.split(";")
@@ -21,16 +15,16 @@ class Gclass:
             strarg += ',str_list[' + str(i) + ']'
         strarg += ')'
         return eval(strarg)
-    # Reset the class
+
     @classmethod
     def reset(cls):
         cls.obj = dict()
         cls.lst = list()
         cls.pos = 0
-    # Object identifier auto increment
+
     @classmethod
     def get_id(cls, id):
-        # Compute the auto increment
+ 
         id = int(id)
         if id == 0:
             if len(cls.lst) == 0:
@@ -38,11 +32,11 @@ class Gclass:
             else:
                 id = max(cls.lst) + 1
         return id
-    # Class method to return the list of object id's having an attribute 'att' = 'value'
+ 
     @classmethod
     def getlines(cls, att, value):
         return [obj.id for obj in list(cls.obj.values()) if getattr(obj, att) == value]
-    # Class methods to iterate (forward and backward) through the class objects
+ 
     @classmethod
     def nextrec(cls):
         cls.pos += 1
@@ -72,7 +66,7 @@ class Gclass:
     def last(cls):
         cls.pos = len(cls.lst) - 1
         return cls.current()
-    # Object delete method
+
     @classmethod
     def remove(cls, p):
         obj = cls.obj[p]
@@ -81,7 +75,7 @@ class Gclass:
         cls.sqlexe(command)
         cls.lst.remove(p)
         del cls.obj[p]
-    # Object insert method
+
     @classmethod
     def insert(cls, p):
         obj = cls.obj[p]
@@ -91,7 +85,7 @@ class Gclass:
             command += f'{cls.conv(obj, att, value)},'
         command = command[:-1] + ")"
         cls.sqlexe(command)
-    # Object update method
+
     @classmethod
     def update(cls, p):
         obj = cls.obj[p]
@@ -110,7 +104,7 @@ class Gclass:
         else:
             ret = f'{value}'
         return ret
-    # Sort objects by attribute class methods
+  
     @classmethod
     def orderfunc(cls, e):
         return getattr(cls.obj[e], cls.sortkey)
@@ -118,13 +112,13 @@ class Gclass:
     def sort(cls, att, reverse = False):
         cls.sortkey = att
         cls.lst.sort(key=cls.orderfunc, reverse= reverse)
-    # Find objects having an attribute equal to value
+
     @classmethod
     def find(cls, value, att):
         lobj = cls.obj.values()
         fobj = [obj for obj in lobj if getattr(obj, att) == value]
         return fobj
-    # Apply a filter by attribute class methods
+
     @classmethod
     def set_filter(cls, f_dic = {}):
         if f_dic:
@@ -142,11 +136,11 @@ class Gclass:
             cls.lst = list(cls.obj.keys())
             code = cls.att[0]
             cls.current(getattr(obj, code))
-    # Get a list of objects attribute values
+
     @classmethod
     def getatlist(cls, att):
         return [getattr(obj, att) for obj in list(cls.obj.values())]
-    # Read objects from db file
+ 
     @classmethod
     def read(cls, path = ''):
         cls.obj = dict()
@@ -167,14 +161,14 @@ class Gclass:
         except BaseException as err:
             print(f"Error in read method:\n{err}\n{type(err)}")
             sys.exit()
-    # Instance method to obtain object info
+
     def __str__(self):
         strprint = "f'"
         for att in type(self).att:
             strprint += '{self.' + att + '};'
         strprint = strprint[:-1] + "'"
         return eval(strprint)
-    # Execute a db query
+
     @classmethod
     def sqlexe(cls, command):
         resul = None
